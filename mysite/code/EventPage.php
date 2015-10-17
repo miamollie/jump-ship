@@ -11,23 +11,35 @@ class EventPage extends Page {
 		'Price' => 'Currency'
 		);
 
+	//Link Event to Activities
+	private static $many_many = array(
+		'Activities' => 'Activity'
+		);
+
 	//Use API to allow update of variables via CMS
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
+
+		//Event Details
 		$fields->addFieldToTab('Root.Main', DateField::create('Date','Date of Event')
 			->setConfig('showcalendar', true)
 			, 'Content');
 		$fields->addFieldToTab('Root.Main', TextareaField::create('Teaser'), 'Content');
 		$fields->addFieldToTab('Root.Main', CurrencyField::create('Price','Price of Event'), 'Content');
 
+		// Event Activities
+		$activitiesField = new GridField(
+            'Activities',
+            'Activities',
+            $this->Activities(),
+            GridFieldConfig_RelationEditor::create()
+        );
+        $fields->addFieldToTab('Root.Activities', $activitiesField);
+        return $fields;
+
 		return $fields;
 	}
 
-	//Add activities to Event Page
-
-	private static $many_many = array (
-		'Activities' => 'Activity'
-		);
 }
 
 
@@ -35,3 +47,4 @@ class EventPage extends Page {
 class EventPage_Controller extends Page_Controller {
 
 }
+

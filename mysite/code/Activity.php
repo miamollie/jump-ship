@@ -14,21 +14,11 @@ class Activity extends DataObject{
 			TextareaField::create('Description')
 			);
 
-		$fields->addFieldToTab('Root.Activities, Root.EventHolder.EventPage', CheckboxSetField::create(
-            'Activities',
-            'Selected Activities',
-            $this->Parent()->Activities()->map('ID','Title')
-        ));
-
 		return $fields;
 
 	}
 
-	private static $has_one = array (
-        'ActivitiesPage' => 'ActivitiesPage',
-    );
-
-    private static $belongs_many_many = array (
+	private static $belongs_many_many = array(
         'Events' => 'EventPage'
     );
 
