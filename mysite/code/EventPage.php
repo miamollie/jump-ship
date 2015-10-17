@@ -1,10 +1,13 @@
 <?php
 
-
+// Class defining an Event
 class EventPage extends Page {
-	// Restrict page creation in tree for CMS User
+
+	//Restrict page creation in tree for CMS User
 	private static $can_be_root = false;
- 	//Define Dynamic Page Variable for CMS User
+	private static $allowed_children = false;
+
+ 	//Attributes of Event Class
 	private static $db = array (
 		'Date' => 'Date',
 		'Teaser' => 'Text',
@@ -16,7 +19,7 @@ class EventPage extends Page {
 		'Activities' => 'Activity'
 		);
 
-	//Use API to allow update of variables via CMS
+	//Define CMS Update-able Fields
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
 
@@ -34,10 +37,10 @@ class EventPage extends Page {
             $this->Activities(),
             GridFieldConfig_RelationEditor::create()
         );
-        $fields->addFieldToTab('Root.Activities', $activitiesField);
-        return $fields;
 
-		return $fields;
+        $fields->addFieldToTab('Root.Activities', $activitiesField);
+
+        return $fields;
 	}
 
 }

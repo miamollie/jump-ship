@@ -1,4 +1,4 @@
-
+<!-- Page Listing All Future Events -->
 
 <div>
 	<h2>$Title</h2>
@@ -7,19 +7,30 @@
 
 <!-- Loop Through All Event Pages -->
 <% loop $Children %>
+
 <!-- Test Date of Event to ensure in Future -->
 	<% if $Date > $Now %>
 		<div class="eventDetails">
 			<!-- Event Info  -->
 			<h3><a href="$Link">$Title</a></h3>
 
-			<p>$Date.Long</p>
-			<p>$Price</p>
+			<!-- Teasre of the event -->
 			<%	if $Teaser %>
 			<p>$Teaser</p>
 			<% else %>
 			<p>$Content.FirstSentence</p>
 			<% end_if %>
+
+			<!-- Details of the event -->
+			<ul>
+				<li>$Date.Long</li>
+				<li>$Price.Nice</li>
+				<li>
+					<% loop $Activities %>
+					$Title <% if $Last %><% else %>, <% end_if %>
+					<% end_loop %>
+				</li>
+			</ul>
 
 			<a href="$Link"><span class="btn btn-default">Find Out More!</span></a>
 
